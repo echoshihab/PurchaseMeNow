@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PurchaseMeNow.DataAccess\PurchaseMeNow.DataAccess.csproj" />
+    <ProjectReference Include="..\PurchaseMeNow.Models\PurchaseMeNow.Models.csproj" />
+    <ProjectReference Include="..\PurchaseMeNow.Utility\PurchaseMeNow.Utility.csproj" />
   </ItemGroup>
 
 </Project>
