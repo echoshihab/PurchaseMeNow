@@ -24,7 +24,7 @@
 
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="Areas\Admin\Controllers\" />
   </ItemGroup>
 
 </Project>
