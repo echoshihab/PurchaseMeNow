@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
 
 
@@ -19,6 +20,11 @@
     <ProjectReference Include="..\PurchaseMeNow.DataAccess\PurchaseMeNow.DataAccess.csproj" />
     <ProjectReference Include="..\PurchaseMeNow.Models\PurchaseMeNow.Models.csproj" />
     <ProjectReference Include="..\PurchaseMeNow.Utility\PurchaseMeNow.Utility.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
