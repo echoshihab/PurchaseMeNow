@@ -10,7 +10,7 @@ using PurchaseMeNow.Models.ViewModels;
 
 namespace PurchaseMeNow.Areas.Client.Controllers
 {
-    [Area("Customer")]
+    [Area("Client")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

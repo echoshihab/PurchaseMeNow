@@ -64,8 +64,6 @@ namespace PurchaseMeNow
                     name: "default",
                     pattern: "{area=Client}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
-
-      
             });
         }
     }
