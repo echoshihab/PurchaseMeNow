@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Migrations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PurchaseMeNow.Models\PurchaseMeNow.Models.csproj" />
     <ProjectReference Include="..\PurchaseMeNow.Utility\PurchaseMeNow.Utility.csproj" />
   </ItemGroup>
