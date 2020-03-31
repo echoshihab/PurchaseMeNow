@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PurchaseMeNow.DataAccess.Data;
+using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
+using PurchaseMeNow.DataAccess.Data.Repository;
 
 namespace PurchaseMeNow
 {
@@ -32,6 +34,8 @@ namespace PurchaseMeNow
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            //add unit of work as part of dependency injection
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
