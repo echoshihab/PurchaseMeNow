@@ -22,9 +22,4 @@
     <ProjectReference Include="..\PurchaseMeNow.Utility\PurchaseMeNow.Utility.csproj" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
-  </ItemGroup>
-
 </Project>
