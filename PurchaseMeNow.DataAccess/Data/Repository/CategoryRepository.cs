@@ -23,7 +23,6 @@ namespace PurchaseMeNow.DataAccess.Data.Repository
             {
                 objFromDb.Name = category.Name;
 
-                _db.SaveChanges();
 
             }
          
