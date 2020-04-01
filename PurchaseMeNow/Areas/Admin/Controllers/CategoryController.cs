@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
+using PurchaseMeNow.Models;
 
 namespace PurchaseMeNow.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -17,11 +19,39 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
         }
 
 
-        [Area("Admin")]
+      
         public IActionResult Index()
         {
             return View();
         }
+
+
+
+        //edit category
+        public IActionResult Upsert(int? id)
+        {
+            Category category = new Category();
+
+            //create
+            if(id == null)
+            {
+                return View(category);
+            }
+
+            //edit
+            category = _unitOfWork.Category.Get(id.GetValueOrDefault());
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return View(category);
+
+        }
+
+
+
 
         #region API CAlls 
         [HttpGet]

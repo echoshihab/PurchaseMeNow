@@ -2,23 +2,24 @@
 
 $(document).ready(function () {
     loadDataTable();
-});
+})
 
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
             "url": "/Admin/Category/GetAll"
         },
+        "language": {
+            "zeroRecords": "Nothing found!",
+        },
         "columns": [
             { "data": "name", "width": "60%" },
             {
-                "data": "id",
-                "render": function (data) {
-                    return `
-                        <div class="text-center">
-                            <a href="/Admin/Category/Upsert/${data}" class="btn btn-sm btn-success text-white" style="cursor:pointer">
-                                i class="fas fa-edit"></i>
-                            </a>
+                "data": "id", "render": function (data) {
+                    return ` <div class="text-center">
+                                <a href="/Admin/Category/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                                    <i class="fas fa-edit"></i>
+                                </a>
                             <a class="btn btn-sm btn-danger text-white" style="cursor:pointer">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
