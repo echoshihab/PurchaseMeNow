@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
 using PurchaseMeNow.Models;
@@ -9,97 +6,87 @@ using PurchaseMeNow.Models;
 namespace PurchaseMeNow.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class DepartmentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryController(IUnitOfWork unitOfWork)
+        public DepartmentController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
 
-      
         public IActionResult Index()
         {
             return View();
         }
 
-
-
-  
         public IActionResult Upsert(int? id)
         {
-            Category category = new Category();
+            Department department = new Department();
 
             //create
-            if(id == null)
+            if (id == null)
             {
-                return View(category);
+                return View(department);
             }
 
             //edit
-            category = _unitOfWork.Category.Get(id.GetValueOrDefault());
+            department = _unitOfWork.Department.Get(id.GetValueOrDefault());
 
-            if (category == null)
+            if (department == null)
             {
                 return NotFound();
             }
 
-            return View(category);
-
+            return View(department);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Category category)
+        public IActionResult Upsert(Department department)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                if(category.Id == 0)
+                if (department.Id == 0)
                 {
-                    _unitOfWork.Category.Add(category);
-                    
+                    _unitOfWork.Department.Add(department);
                 }
                 else
                 {
-                    _unitOfWork.Category.Update(category);
+                    _unitOfWork.Department.Update(department);
                 }
 
                 _unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
-
             }
 
-            return View(category);
+            return View(department);
         }
 
+        #region API CAlls
 
-
-
-
-        #region API CAlls 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var allObj = _unitOfWork.Category.GetAll();
-            return Json(new { data = allObj });
+            var allobj = _unitOfWork.Department.GetAll();
+            return Json(new { data = allobj });
         }
 
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var objFromDb = _unitOfWork.Category.Get(id);
+            var objFromDb = _unitOfWork.Department.Get(id);
 
             if(objFromDb == null)
             {
                 return Json(new { success = false, message = "Error while deleting" });
 
             }
-            _unitOfWork.Category.Remove(objFromDb);
+            _unitOfWork.Department.Remove(objFromDb);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Delete Successful" });
+
         }
 
 
@@ -107,5 +94,8 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
 
         #endregion
 
+
+
     }
+
 }
