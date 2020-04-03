@@ -10,6 +10,7 @@ namespace PurchaseMeNow.Models
     {
         public int Id { get; set; }
 
+        [Required]
         [Display(Name= "Product")]
         public string Name { get; set;}
         public string Description { get; set; }
@@ -19,5 +20,11 @@ namespace PurchaseMeNow.Models
 
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+
+        [Required]
+        public int DepartmentId { get; set; }
+
+        [ForeignKey("DepartmentId")]
+        public Department Department { get; set; }
     }
 }
