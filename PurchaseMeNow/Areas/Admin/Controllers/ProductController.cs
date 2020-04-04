@@ -76,6 +76,25 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
                 _unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
+            else
+            {
+                productVM.CategoryList = _unitOfWork.Category.GetAll().Select(c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                });
+                productVM.DepartmentList = _unitOfWork.Department.GetAll().Select(d => new SelectListItem
+                {
+                    Text = d.Name,
+                    Value = d.Id.ToString()
+                });
+
+                if(productVM.Product.Id != 0)
+                {
+                    productVM.Product = _unitOfWork.Product.Get(productVM.Product.Id);
+                }
+
+            }
             return View(productVM);
         }
 
