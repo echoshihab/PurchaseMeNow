@@ -1,9 +1,7 @@
 ﻿using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
 using PurchaseMeNow.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
 
 namespace PurchaseMeNow.DataAccess.Data.Repository
 {

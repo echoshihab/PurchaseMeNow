@@ -8,6 +8,7 @@ namespace PurchaseMeNow.DataAccess.Data.Repository.IRepository
     {
         ICategoryRepository Category { get; }
         IDepartmentRepository Department { get; }
+        IProductRepository Product { get; }
 
         void Save();
     }
