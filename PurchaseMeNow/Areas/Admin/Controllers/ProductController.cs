@@ -10,6 +10,7 @@ using PurchaseMeNow.Models.ViewModels;
 
 namespace PurchaseMeNow.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
