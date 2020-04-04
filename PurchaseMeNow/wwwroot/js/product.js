@@ -13,10 +13,10 @@ function loadDataTable() {
             "infoEmpty": "Nothing found!",
         },
         "columns": [
-            { "data": "name", "width": "15%" },
-            { "data": "description", "width": "15%" },
-            { "data": "category.Name", "width": "15%" },
-            { "data": "department.Name", "width": "15%" },
+            { "data": "name", "width": "25%" },
+            { "data": "description", "width": "25%" },
+            { "data": "category.name", "width": "20%" },
+            { "data": "department.name", "width": "20%" },
             {
                 "data": "id", "render": function (data) {
                     return ` <div class="text-center">

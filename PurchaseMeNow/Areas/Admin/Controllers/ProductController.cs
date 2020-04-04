@@ -59,25 +59,25 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
             return View(productVM);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Upsert(Product product)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (product.Id == 0)
-        //        {
-        //            _unitOfWork.Product.Add(product);
-        //        }
-        //        else
-        //        {
-        //            _unitOfWork.Product.Update(product);
-        //        }
-        //        _unitOfWork.Save();
-        //        RedirectToAction(nameof(Index));
-        //    }
-        //    return View(product);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(ProductVM productVM)
+        {
+            if (ModelState.IsValid)
+            {
+                if (productVM.Product.Id == 0)
+                {
+                    _unitOfWork.Product.Add(productVM.Product);
+                }
+                else
+                {
+                    _unitOfWork.Product.Update(productVM.Product);
+                }
+                _unitOfWork.Save();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(productVM);
+        }
 
         #region Api CAlls
         [HttpGet]
