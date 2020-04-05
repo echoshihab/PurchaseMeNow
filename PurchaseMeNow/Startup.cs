@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using PurchaseMeNow.DataAccess.Data;
 using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
 using PurchaseMeNow.DataAccess.Data.Repository;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using PurchaseMeNow.Utility;
 
 namespace PurchaseMeNow
 {
@@ -34,6 +36,7 @@ namespace PurchaseMeNow
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddSingleton<IEmailSender, EmailSender>();
             //add unit of work as part of dependency injection
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews();
