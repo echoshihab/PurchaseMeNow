@@ -1,5 +1,6 @@
 ﻿@page
 @model RegisterModel
+@using PurchaseMeNow.Utility
 @{
     ViewData["Title"] = "Register";
 }
@@ -36,6 +37,13 @@
                 <label asp-for="Input.DepartmentId"></label>
                 @Html.DropDownListFor(m => m.Input.DepartmentId, Model.Input.DepartmentList, "Select a Department", new { @class = "form-control" })
             </div>
+            @if (User.IsInRole(SD.Role_Admin))
+            {
+                <div class="form-group">
+                    <label asp-for="Input.Role"></label>
+                    @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "Select a Role", new { @class = "form-control" })
+                </div>
+            }
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
     </div>
