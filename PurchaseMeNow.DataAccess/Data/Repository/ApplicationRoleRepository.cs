@@ -7,10 +7,10 @@ using System.Text;
 
 namespace PurchaseMeNow.DataAccess.Data.Repository
 {
-    public class ApplicationUserRepository: Repository<ApplicationUser>, IApplicationUserRepository
+    public class ApplicationRoleRepository : Repository<IdentityRole>, IApplicationRoleRepository
     {
         private readonly ApplicationDbContext _db;
-        public ApplicationUserRepository(ApplicationDbContext db) : base(db)
+        public ApplicationRoleRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }

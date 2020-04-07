@@ -1,4 +1,5 @@
-﻿using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
+﻿using Microsoft.AspNetCore.Identity;
+using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
 
 namespace PurchaseMeNow.DataAccess.Data.Repository
 {
@@ -13,13 +14,15 @@ namespace PurchaseMeNow.DataAccess.Data.Repository
             Department = new DepartmentRepository(_db);
             Product = new ProductRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
-            
+            ApplicationRole = new ApplicationRoleRepository(_db);
         }
 
         public ICategoryRepository Category { get; private set; }
         public IDepartmentRepository Department { get; private set; }
         public IProductRepository Product { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
+
+        public IApplicationRoleRepository ApplicationRole { get; private set; }
 
 
         public void Dispose()
