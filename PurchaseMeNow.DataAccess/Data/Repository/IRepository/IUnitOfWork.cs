@@ -12,7 +12,6 @@ namespace PurchaseMeNow.DataAccess.Data.Repository.IRepository
 
         IApplicationUserRepository ApplicationUser { get; }
 
-        IApplicationRoleRepository ApplicationRole { get; }
 
         void Save();
     }

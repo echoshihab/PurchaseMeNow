@@ -14,13 +14,13 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ApplicationDbContext _db;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public UserController(IUnitOfWork unitOfWork, ApplicationDbContext db)
+        public UserController(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager)
         {
             _unitOfWork = unitOfWork;
-            _db = db;
- 
+            _userManager = userManager;
+
         }
 
 
@@ -89,10 +89,17 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
         public IActionResult GetAll()
         {
             var userList = _unitOfWork.ApplicationUser.GetAll(includeProperties:"Department");
-            var userRole = _unitOfWork.ApplicationRole.GetAll();
-          
+            //var roleList = _unitOfWork.ApplicationRole.GetAll();
+            //var applicationUserRole = _unitOfWork.ApplicationUserRole.GetAll();
 
-            return Json(new { data = userRole });
+            foreach(var user in userList)
+            {
+                user.Role = _userManager.GetRolesAsync(user).Result.FirstOrDefault();
+            }
+
+
+
+            return Json(new { userList });
         }
 
        

@@ -14,7 +14,7 @@ namespace PurchaseMeNow.DataAccess.Data.Repository
             Department = new DepartmentRepository(_db);
             Product = new ProductRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
-            ApplicationRole = new ApplicationRoleRepository(_db);
+
         }
 
         public ICategoryRepository Category { get; private set; }
@@ -22,7 +22,6 @@ namespace PurchaseMeNow.DataAccess.Data.Repository
         public IProductRepository Product { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
 
-        public IApplicationRoleRepository ApplicationRole { get; private set; }
 
 
         public void Dispose()
