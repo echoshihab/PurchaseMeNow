@@ -89,9 +89,7 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
         public IActionResult GetAll()
         {
             var userList = _unitOfWork.ApplicationUser.GetAll(includeProperties:"Department");
-            //var roleList = _unitOfWork.ApplicationRole.GetAll();
-            //var applicationUserRole = _unitOfWork.ApplicationUserRole.GetAll();
-
+          
             foreach(var user in userList)
             {
                 user.Role = _userManager.GetRolesAsync(user).Result.FirstOrDefault();
@@ -103,7 +101,27 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
         }
 
        
+        [HttpPost]
+        public IActionResult ToggleLock([FromBody] string id)
+        {
+            var user = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == id); 
+            if (user == null)
+            {
+                return Json(new { success = false, message = "Error while toggling lock on user" });
+            }
 
+            if(user.LockoutEnd!=null && user.LockoutEnd > DateTime.Now)
+            {
+                //unlock user by setting lockout end time to now
+                user.LockoutEnd = DateTime.Now;
+            }
+            else
+            {
+                user.LockoutEnd = DateTime.Now.AddYears(200);
+            }
+            _unitOfWork.Save();
+            return Json(new { success = true, message = "Task Complete" });
+        }
 
 
 
