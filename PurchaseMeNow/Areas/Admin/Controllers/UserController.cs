@@ -99,7 +99,7 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
 
 
 
-            return Json(new { userList });
+            return Json(new { data = userList });
         }
 
        
