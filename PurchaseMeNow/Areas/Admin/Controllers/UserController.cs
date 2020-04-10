@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PurchaseMeNow.DataAccess.Data;
 using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
 using PurchaseMeNow.Models;
+using PurchaseMeNow.Models.ViewModels;
 
 namespace PurchaseMeNow.Areas.Admin.Controllers
 {
@@ -15,11 +17,13 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<IdentityUser> _userManager;
-
-        public UserController(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public UserController(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
+            _roleManager = roleManager;
 
         }
 
@@ -31,8 +35,93 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
         }
 
 
+        public IActionResult Edit(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var user = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == id, includeProperties: "Department");
 
-  
+            if (user == null)
+            {
+                return NotFound();
+            }
+            user.Role = _userManager.GetRolesAsync(user).Result.FirstOrDefault();
+
+            ApplicationUserVM applicationUserVM = new ApplicationUserVM()
+            {
+                ApplicationUser = user,
+                RoleList = _roleManager.Roles.Select(c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Name
+                }),
+                DepartmentList = _unitOfWork.Department.GetAll().Select(d => new SelectListItem
+                {
+
+                    Text = d.Name,
+                    Value = d.Id.ToString(),
+                    Selected = (d.Name == user.Department.Name ? true : false)
+
+                 })
+
+            };
+
+            return View(applicationUserVM);
+        }
+    
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+           public IActionResult Edit(ApplicationUserVM applicationUserVM)
+            
+        {
+            if(ModelState.IsValid)
+            {
+                var userToUpdate = _unitOfWork.ApplicationUser.GetFirstOrDefault(u=> u.Id==applicationUserVM.ApplicationUser.Id);
+
+                if (userToUpdate != null)
+                {
+                    userToUpdate.Name = applicationUserVM.ApplicationUser.Name;
+                    userToUpdate.Email = applicationUserVM.ApplicationUser.Email;
+                    userToUpdate.DepartmentId = applicationUserVM.ApplicationUser.DepartmentId;
+                }
+
+                var result = _userManager.UpdateAsync(userToUpdate).Result;
+
+                
+                if (result.Succeeded)
+                { 
+                    //try adding to role if user update successful
+                    if (_roleManager.RoleExistsAsync(applicationUserVM.ApplicationUser.Role).Result)
+                    {
+                       //only update role if changed
+                        if (!_userManager.IsInRoleAsync(userToUpdate, applicationUserVM.ApplicationUser.Role).Result)
+                        {
+                            var currentRole = _userManager.GetRolesAsync(userToUpdate).Result;
+                             _userManager.RemoveFromRolesAsync(userToUpdate, currentRole).Wait();
+                            _userManager.AddToRoleAsync(userToUpdate, applicationUserVM.ApplicationUser.Role).Wait();
+                        }
+
+                    }
+                   
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ModelState.AddModelError("","Error updating user");
+                }
+               
+
+                
+            }
+            return View(applicationUserVM);
+
+
+
+
+        }
+
         //public IActionResult Upsert(int? id)
         //{
         //    Category category = new Category();

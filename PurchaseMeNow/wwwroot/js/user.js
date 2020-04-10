@@ -26,22 +26,29 @@ function loadDataTable() {
                     var lockout = new Date(data.lockoutEnd).getTime();
                     if (lockout > today) {
                         return ` <div class="text-center">
-                            <a onclick=ToggleLock('${data.id}') class="btn btn-sm btn-danger text-white" style="cursor:pointer">
+                            <a onclick=ToggleLock('${data.id}') class="btn btn-sm btn-success text-white" style="cursor:pointer">
                                 <i class="fas fa-lock-open"></i> Unlock 
+                            </a>
+                        <a href="/Admin/User/Edit/${data.id}" class="btn btn-sm btn-success text-white" style="cursor:pointer">
+                                    <i class="fas fa-edit"></i>
                             </a>
                         </div>
                             `;
                     }
                     else {
                         return ` <div class="text-center">
-                            <a onclick=ToggleLock('${data.id}') class="btn btn-sm btn-success text-white" style="cursor:pointer">
+                            <a onclick=ToggleLock('${data.id}') class="btn btn-sm btn-danger text-white" style="cursor:pointer">
                                 <i class="fas fa-lock"></i> Lock 
                             </a>
+                            <a href="/Admin/User/Edit/${data.id}" class="btn btn-sm btn-success text-white" style="cursor:pointer">
+                                    <i class="fas fa-edit"></i>
+                             </a>
+                         
                         </div>
                             `;
                     }
 
-                },"width": "20%"
+                }, "width": "20%"
 
             }
         ]
@@ -49,22 +56,21 @@ function loadDataTable() {
     });
 }
 
-function ToggleLock(id){
+function ToggleLock(id) {
 
-            $.ajax({
-                type: "POST",
-                url: '/Admin/User/ToggleLock',
-                data: JSON.stringify(id),
-                contentType: "application/json", 
-                success: function (data) {
-                    if (data.success) {
-                        toastr.success(data.message);
-                        dataTable.ajax.reload();
-                    }
-                    else {
-                        toastr.error(data.message);
-                    }
-                }
-            });
+    $.ajax({
+        type: "POST",
+        url: '/Admin/User/ToggleLock',
+        data: JSON.stringify(id),
+        contentType: "application/json",
+        success: function (data) {
+            if (data.success) {
+                toastr.success(data.message);
+                dataTable.ajax.reload();
+            }
+            else {
+                toastr.error(data.message);
+            }
         }
-  
+    });
+}
