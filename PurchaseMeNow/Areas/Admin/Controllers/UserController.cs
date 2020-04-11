@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,10 +10,12 @@ using PurchaseMeNow.DataAccess.Data;
 using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
 using PurchaseMeNow.Models;
 using PurchaseMeNow.Models.ViewModels;
+using PurchaseMeNow.Utility;
 
 namespace PurchaseMeNow.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Coordinator)]
     public class UserController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
