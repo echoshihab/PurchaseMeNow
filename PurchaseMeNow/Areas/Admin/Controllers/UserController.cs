@@ -76,9 +76,9 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
            public IActionResult Edit(ApplicationUserVM applicationUserVM)
             
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var userToUpdate = _unitOfWork.ApplicationUser.GetFirstOrDefault(u=> u.Id==applicationUserVM.ApplicationUser.Id);
+                var userToUpdate = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == applicationUserVM.ApplicationUser.Id);
 
                 if (userToUpdate != null)
                 {
@@ -89,32 +89,49 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
 
                 var result = _userManager.UpdateAsync(userToUpdate).Result;
 
-                
+
                 if (result.Succeeded)
-                { 
+                {
                     //try adding to role if user update successful
                     if (_roleManager.RoleExistsAsync(applicationUserVM.ApplicationUser.Role).Result)
                     {
-                       //only update role if changed
+                        //only update role if changed
                         if (!_userManager.IsInRoleAsync(userToUpdate, applicationUserVM.ApplicationUser.Role).Result)
                         {
                             var currentRole = _userManager.GetRolesAsync(userToUpdate).Result;
-                             _userManager.RemoveFromRolesAsync(userToUpdate, currentRole).Wait();
+                            _userManager.RemoveFromRolesAsync(userToUpdate, currentRole).Wait();
                             _userManager.AddToRoleAsync(userToUpdate, applicationUserVM.ApplicationUser.Role).Wait();
                         }
 
                     }
-                   
+
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    ModelState.AddModelError("","Error updating user");
+                    ModelState.AddModelError("", "Error updating user");
                 }
-               
 
-                
+
+
             }
+            //return to edit page with proper viewmodel if there are issues.
+            applicationUserVM.RoleList = _roleManager.Roles.Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Name,
+                Selected = (c.Name == applicationUserVM.ApplicationUser.Role ? true : false)
+            });
+            applicationUserVM.DepartmentList = _unitOfWork.Department.GetAll().Select(d => new SelectListItem
+            {
+
+                Text = d.Name,
+                Value = d.Id.ToString(),
+                Selected = (d.Id == applicationUserVM.ApplicationUser.DepartmentId ? true : false)
+
+            });
+
+
             return View(applicationUserVM);
 
 
