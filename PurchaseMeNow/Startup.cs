@@ -37,6 +37,17 @@ namespace PurchaseMeNow
             services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSingleton<IEmailSender, EmailSender>();
+
+            services.Configure<EmailOptions>(option =>
+            {
+                option.MailServer = "smtp.gmail.com";
+                option.MailPort = 587;
+                option.SenderName = "Admin";
+                option.Sender = Environment.GetEnvironmentVariable("PMN_Sender", EnvironmentVariableTarget.User);
+                option.Password = Environment.GetEnvironmentVariable("PMN_SenderPW", EnvironmentVariableTarget.User);
+
+            });
+
             //add unit of work as part of dependency injection
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews();
