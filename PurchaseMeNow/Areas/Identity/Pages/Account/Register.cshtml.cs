@@ -183,6 +183,22 @@ namespace PurchaseMeNow.Areas.Identity.Pages.Account
                 }
             }
 
+            //generate dropdown lists incase the form has to be re-displayed due to errors.
+            Input = new InputModel()
+            {
+                DepartmentList = _unitOfWork.Department.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                }),
+                RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
+                {
+                    Text = i,
+                    Value = i
+                })
+
+            };
+
             // If we got this far, something failed, redisplay form
             return Page();
         }
