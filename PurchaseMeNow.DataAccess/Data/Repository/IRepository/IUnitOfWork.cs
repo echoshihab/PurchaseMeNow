@@ -12,6 +12,12 @@ namespace PurchaseMeNow.DataAccess.Data.Repository.IRepository
 
         IApplicationUserRepository ApplicationUser { get; }
 
+        IOrderRepository Order { get; }
+        IApprovalDecisionRepository ApprovalDecision { get; }
+        IPurchaseDecisionRepository PurchaseDecision { get; }
+
+        IDeliveryDetailRepository DeliveryDetail { get; }
+
 
         void Save();
     }
