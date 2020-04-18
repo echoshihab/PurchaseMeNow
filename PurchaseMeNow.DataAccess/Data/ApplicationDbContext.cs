@@ -12,7 +12,7 @@ namespace PurchaseMeNow.DataAccess.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            
+
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Department> Departments { get; set; }
@@ -22,6 +22,8 @@ namespace PurchaseMeNow.DataAccess.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderHeader> OrderHeaders { get; set; }
         public DbSet<ApprovalDecision> ApprovalDecisions { get; set; }
 
         public DbSet<PurchaseDecision> PurchaseDecisions { get; set; }
