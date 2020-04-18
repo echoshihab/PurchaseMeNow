@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using PurchaseMeNow.Utility;
 
 namespace PurchaseMeNow.Areas.Identity.Pages.Account
 {
@@ -28,6 +30,8 @@ namespace PurchaseMeNow.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
+            //set order count at navlink to 0 when logging out
+            HttpContext.Session.SetInt32(SD.ssOrder, 0);
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)

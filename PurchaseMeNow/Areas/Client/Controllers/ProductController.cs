@@ -2,9 +2,11 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
 using PurchaseMeNow.Models;
+using PurchaseMeNow.Utility;
 
 namespace PurchaseMeNow.Areas.Client.Controllers
 {
@@ -18,6 +20,19 @@ namespace PurchaseMeNow.Areas.Client.Controllers
         }
         public IActionResult Index()
         {
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            //update order count in navbar if user is logged in 
+            if(claim != null)
+            {
+                var count = _unitOfWork.Order
+                 .GetAll(u => u.ApplicationUserId == claim.Value)
+                 .ToList().Count();
+
+                HttpContext.Session.SetInt32(SD.ssOrder, count);
+            }
             return View();
         }
 
@@ -61,6 +76,14 @@ namespace PurchaseMeNow.Areas.Client.Controllers
                     _unitOfWork.Order.Update(orderFromDb);
                 }
                 _unitOfWork.Save();
+
+                var count = _unitOfWork.Order
+                    .GetAll(u => u.ApplicationUserId == orderObj.ApplicationUserId)
+                    .ToList().Count();
+
+                //add count to sessions for navlink display of order counts
+                HttpContext.Session.SetInt32(SD.ssOrder, count);
+
                 return RedirectToAction(nameof(Index));
 
             }
