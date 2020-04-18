@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
+using PurchaseMeNow.Models;
 
 namespace PurchaseMeNow.Areas.Client.Controllers
 {
@@ -17,6 +18,20 @@ namespace PurchaseMeNow.Areas.Client.Controllers
         {
             return View();
         }
+
+        public IActionResult AddToOrder(int id)
+        {
+            var productFromDb = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id, includeProperties: "Category,Department");
+
+            Order order = new Order()
+            {
+                Product = productFromDb,
+                ProductId = productFromDb.Id
+            };
+
+            return View(order);
+        }
+
 
         #region API Calls
         [HttpGet]

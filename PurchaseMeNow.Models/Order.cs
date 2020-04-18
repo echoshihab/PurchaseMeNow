@@ -29,10 +29,6 @@ namespace PurchaseMeNow.Models
         [Range(1,1000, ErrorMessage ="Please enter a value between 1 and 1000")]
         public int Count { get; set; }
 
-        public DateTime OrderDate { get; set; }
-        public bool? Approved { get; set; }
-        public bool? Purchased { get; set; }
 
-        public bool? Delivered { get; set; }
     }
 }

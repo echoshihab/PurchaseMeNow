@@ -20,7 +20,7 @@ function loadDataTable() {
             {
                 "data": "id", "render": function (data) {
                     return ` <div class="text-center">
-                                <a href="/Client/Product/Order/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                                <a href="/Client/Product/AddToOrder/${data}" class="btn btn-success text-white" style="cursor:pointer">
                                     <i class="fas fa-shopping-cart"></i>
                                 </a>
                           

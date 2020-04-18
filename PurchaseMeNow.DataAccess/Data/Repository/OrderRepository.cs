@@ -15,14 +15,7 @@ namespace PurchaseMeNow.DataAccess.Data.Repository.IRepository
         }
         public void Update(Order order)
         {
-            var objFromDb = _db.Orders.FirstOrDefault(o => o.Id == order.Id);
-
-            if (objFromDb != null)
-            {
-                objFromDb.Approved = order.Approved;
-                objFromDb.Purchased = order.Purchased;
-                objFromDb.Approved = order.Approved;
-            }
+            _db.Update(order);
         }
     }
 }
