@@ -34,20 +34,20 @@
                                         </div>
                                         <div class="col-6 col-sm-4 col-lg-6">
                                             <div class="float-right mx-1">
-                                                <button type="submit" class="btn btn-primary">
+                                                <a asp-action="Increment" asp-route-orderId="@item.Id" class="btn btn-primary">
                                                     <i class="fas fa-plus"></i>
-                                                </button>
+                                                </a>
                                             </div>
                                             <div class="float-right mx-1">
-                                                <button type="submit" class="btn btn-danger">
+                                                <a asp-action="Decrement" asp-route-orderId="@item.Id" class="btn btn-danger">
                                                     <i class="fas fa-minus"></i>
-                                                </button>
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="col-2 col-sm-4 col-lg-2 text-right">
-                                            <button type="submit" class="btn btn-outline-danger">
+                                            <a asp-action="Delete" asp-route-orderId="@item.Id" class="btn btn-danger">
                                                 <i class="fas fa-trash"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                                 @if (!Model.OrderHeader.ApplicationUser.EmailConfirmed)
                                 {
                                     <div class="col-8 text-danger">
-                                        Email must be confirmed for authorized customers!
+                                        Email must be confirmed prior to placing order!
                                     </div>
                                     <div class="col-4">
                                         <button type="submit" class="btn btn-outline-warning btn-sm">
