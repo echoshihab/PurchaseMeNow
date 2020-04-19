@@ -1,0 +1,92 @@
+﻿@model PurchaseMeNow.Models.ViewModels.OrderListVM
+
+    <form method="post">
+        <br />
+        @if (Model.OrderList.Count() > 0)
+        {
+            <div class="backgroundWhiteBorder">
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header bg-dark text-light ml-0 row container">
+                            <div class="col-6">
+                                <i class="fa fa-shopping-cart"></i> &nbsp;
+                                Order List
+                            </div>
+                            <div class="col-6 text-right">
+                                <a asp-area="Client" asp-controller="Product" asp-action="Index" class="btn btn-outline-info btn-sm">Add More Items</a>
+                            </div>
+                        </div>
+                   
+
+                        <div class="card-body">
+                            @foreach (var item in Model.OrderList)
+                            {
+
+                                <div class="row">
+
+                                    <div class="col-12 text-sm-center col-lg-6 text-lg-left">
+                                        <h5><strong>@item.Product.Name</strong></h5>
+                                        <p><small>@Html.Raw(item.Product.Description)</small></p>
+                                    </div>
+                                    <div class="col-12 text-sm-center col-lg-5 text-lg-right row">
+                                        <div class="col-4 text-md-right" style="padding-top:5px;">
+                                            <h6><strong><span class="text-muted">x</span> @item.Count </strong></h6>
+                                        </div>
+                                        <div class="col-6 col-sm-4 col-lg-6">
+                                            <div class="float-right mx-1">
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                            <div class="float-right mx-1">
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 col-sm-4 col-lg-2 text-right">
+                                            <button type="submit" class="btn btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+
+                            }
+
+                        </div>
+
+                     
+                        <div class="card-footer">
+                            <div class="card-footer row">
+                                @if (!Model.OrderHeader.ApplicationUser.EmailConfirmed)
+                                {
+                                    <div class="col-8 text-danger">
+                                        Email must be confirmed for authorized customers!
+                                    </div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-outline-warning btn-sm">
+                                            Click here to resend confirmation Email!
+                                        </button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
+
+                                        <a asp-area="Customer" asp-controller="Cart" asp-action="Summary" class="btn btn-success form-control">Summary</a>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div>There are no items in your order list</div>
+        }
+    </form>

@@ -11,6 +11,7 @@ using PurchaseMeNow.Models.ViewModels;
 
 namespace PurchaseMeNow.Areas.Client.Controllers
 {
+    [Area("Client")]
     public class OrderController : Controller
 
     {
@@ -42,6 +43,7 @@ namespace PurchaseMeNow.Areas.Client.Controllers
             OrderListVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser
                                                         .GetFirstOrDefault(u => u.Id == claim.Value,
                                                          includeProperties: "Department");
+
 
             return View(OrderListVM);
         }
