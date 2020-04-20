@@ -126,5 +126,23 @@ namespace PurchaseMeNow.Areas.Client.Controllers
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult PlaceOrder()
+        //{
+        //    var claimsIdentity = (ClaimsIdentity)User.Identity;
+        //    var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+        //    OrderListVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser
+        //        .GetFirstOrDefault(u=>u.Id == claim.Value, includeProperties: "Department");
+
+        //    OrderListVM.OrderHeader.OrderStatus = SD.OrderStatusPending;
+        //    OrderListVM.OrderHeader.ApplicationUserId = claim.Value;
+        //    OrderListVM.OrderHeader.OrderDate = DateTime.Now;
+
+        //    _unitOfWork.OrderHeader.Add(OrderListVM.OrderHeader);
+
+        //}
     }
 }

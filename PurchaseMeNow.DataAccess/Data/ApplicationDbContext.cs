@@ -29,5 +29,7 @@ namespace PurchaseMeNow.DataAccess.Data
         public DbSet<PurchaseDecision> PurchaseDecisions { get; set; }
 
         public DbSet<DeliveryDetail> DeliveryDetails { get; set; }
+
+        public DbSet<OrderDetail> OrderDetails { get; set; }
     }
 }
