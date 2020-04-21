@@ -62,13 +62,14 @@
                             <div class="card-footer row">
                                 @if (!Model.OrderHeader.ApplicationUser.EmailConfirmed)
                                 {
+
                                     <div class="col-8 text-danger">
                                         Email must be confirmed prior to placing order!
                                     </div>
                                     <div class="col-4">
-                                        <button type="submit" class="btn btn-outline-warning btn-sm">
+                                        <a asp-area="Client" asp-controller="Order" asp-action="ResendEmail" class="btn btn-outline-warning btn-sm">
                                             Click here to resend confirmation Email!
-                                        </button>
+                                        </a>
                                     </div>
                                 }
                                 else

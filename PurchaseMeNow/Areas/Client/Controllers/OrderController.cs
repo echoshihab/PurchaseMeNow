@@ -25,7 +25,6 @@ namespace PurchaseMeNow.Areas.Client.Controllers
         private readonly IEmailSender _emailSender;
         private readonly UserManager<IdentityUser> _userManager;
 
-        [BindProperty]
         public OrderListVM OrderListVM { get; set; }
         public OrderController(IUnitOfWork unitOfWork, IEmailSender emailSender,  UserManager<IdentityUser> userManager)
         {
@@ -55,9 +54,8 @@ namespace PurchaseMeNow.Areas.Client.Controllers
             return View(OrderListVM);
         }
 
-        [HttpPost]
-        [ActionName("Index")]
-        public async Task<IActionResult> IndexPOST()
+
+        public async Task<IActionResult> ResendEmail()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
