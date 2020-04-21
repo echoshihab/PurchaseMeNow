@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
+using PurchaseMeNow.Models;
 using PurchaseMeNow.Models.ViewModels;
 using PurchaseMeNow.Utility;
 
@@ -24,6 +25,7 @@ namespace PurchaseMeNow.Areas.Client.Controllers
         private readonly IEmailSender _emailSender;
         private readonly UserManager<IdentityUser> _userManager;
 
+        [BindProperty]
         public OrderListVM OrderListVM { get; set; }
         public OrderController(IUnitOfWork unitOfWork, IEmailSender emailSender,  UserManager<IdentityUser> userManager)
         {
@@ -127,22 +129,50 @@ namespace PurchaseMeNow.Areas.Client.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult PlaceOrder()
-        //{
-        //    var claimsIdentity = (ClaimsIdentity)User.Identity;
-        //    var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PlaceOrder()
+        {
+            //start from here- null reference,need to make orderlistvm post
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-        //    OrderListVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser
-        //        .GetFirstOrDefault(u=>u.Id == claim.Value, includeProperties: "Department");
 
-        //    OrderListVM.OrderHeader.OrderStatus = SD.OrderStatusPending;
-        //    OrderListVM.OrderHeader.ApplicationUserId = claim.Value;
-        //    OrderListVM.OrderHeader.OrderDate = DateTime.Now;
+            OrderListVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser
+                .GetFirstOrDefault(u => u.Id == claim.Value, includeProperties: "Department");
 
-        //    _unitOfWork.OrderHeader.Add(OrderListVM.OrderHeader);
+            OrderListVM.OrderHeader.OrderStatus = SD.OrderStatusPending;
+            OrderListVM.OrderHeader.ApplicationUserId = claim.Value;
+            OrderListVM.OrderHeader.OrderDate = DateTime.Now;
 
-        //}
+            _unitOfWork.OrderHeader.Add(OrderListVM.OrderHeader);
+            _unitOfWork.Save(); //need to save here so that orderheader ID is populated
+
+            List<OrderDetail> orderDetailList = new List<OrderDetail>();
+
+            foreach(var item in OrderListVM.OrderList)
+            {
+                OrderDetail orderDetail = new OrderDetail()
+                {
+                    ProductId = item.ProductId,
+                    OrderHeaderId = OrderListVM.OrderHeader.Id,
+                    Count = item.Count
+
+                };
+                _unitOfWork.OrderDetail.Add(orderDetail);
+                _unitOfWork.Save();
+            }
+
+            _unitOfWork.Order.RemoveRange(OrderListVM.OrderList);
+            HttpContext.Session.SetInt32(SD.ssOrder, 0);
+
+            return RedirectToAction("OrderConfirmation", "Order", new { id = OrderListVM.OrderHeader.Id });
+
+        }
+
+        public IActionResult OrderConfirmation(int id) {
+
+            return View(id);
+        }
     }
 }
