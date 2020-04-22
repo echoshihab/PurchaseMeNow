@@ -62,6 +62,10 @@
                                 </div>
                             </li>
                         }
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a>
+                        </li>
+
                         @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssOrder) != null)
                         {
                             <li style="color:white">
