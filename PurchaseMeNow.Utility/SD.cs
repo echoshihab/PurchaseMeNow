@@ -16,9 +16,9 @@ namespace PurchaseMeNow.Utility
 
         //order status
         public const string OrderStatusPending = "Pending";
-        public const string OrderStatusApproved = "Approved";
-        public const string OrderStatusPurchased = "Purchased";
+        public const string OrderStatusInProcess = "Processing";
         public const string OrderStatusDelivered = "Delivered";
+        public const string OrderStatusCancelled = "Rejected";
         public const string OrderStatusRejected = "Rejected";
 
 

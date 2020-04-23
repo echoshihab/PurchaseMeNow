@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
 using PurchaseMeNow.Models;
+using PurchaseMeNow.Utility;
 
 namespace PurchaseMeNow.Areas.Admin.Controllers
 {
@@ -26,11 +28,42 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
 
         #region API Calls
         [HttpGet]
-        public IActionResult GetOrderList()
+        public IActionResult GetOrderList(string status)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
             IEnumerable<OrderHeader> orderHeaderList;
 
-            orderHeaderList = _unitofWork.OrderHeader.GetAll(includeProperties: "ApplicationUser");
+            if(User.IsInRole(SD.Role_Admin)
+            {
+                orderHeaderList = _unitofWork.OrderHeader.GetAll(includeProperties: "ApplicationUser");
+            }
+            else
+            {
+                orderHeaderList = _unitofWork.OrderHeader.GetAll(u=> u.ApplicationUserId == claim.Value, includeProperties: "ApplicationUser");
+            }
+
+            switch (status)
+            {
+                case "pending":
+                    orderHeaderList = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusPending);
+                    break;
+                case "inprocess":
+                    orderHeaderList = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusInProcess);
+                    break;
+                case "rejected":
+                    orderHeaderList = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusRejected 
+                                                        ||  o.OrderStatus ==SD.OrderStatusCancelled);
+                    break;
+                case "completed":
+                    orderHeaderList = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusDelivered);
+                    break;
+                default:
+                    break;
+
+            }
+
             return Json(new { data = orderHeaderList });
         }
 
