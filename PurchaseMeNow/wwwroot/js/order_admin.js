@@ -1,10 +1,8 @@
 ﻿var dataTable;
-
+const params =  ["inprocess", "pending", "rejected", "completed"];
 
 $(document).ready(function () {
     let url = window.location.search;
-    let params = ["inprocess", "pending", "rejected", "completed"];
-
     let result = params.find(param => url.includes(param));
 if (typeof(result) != "undefined") {
     loadDataTable(`GetOrderList?status=${result}`);

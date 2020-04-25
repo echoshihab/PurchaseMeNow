@@ -76,7 +76,6 @@ namespace PurchaseMeNow.Areas.Client.Controllers
             _unitOfWork.OrderHeader.Add(OrderListVM.OrderHeader);
             _unitOfWork.Save(); //need to save here so that orderheader ID is populated
 
-            List<OrderDetail> orderDetailList = new List<OrderDetail>();
 
             foreach (var item in OrderListVM.OrderList)
             {

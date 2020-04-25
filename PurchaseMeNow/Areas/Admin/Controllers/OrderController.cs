@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
 using PurchaseMeNow.Models;
+using PurchaseMeNow.Models.ViewModels;
 using PurchaseMeNow.Utility;
 
 namespace PurchaseMeNow.Areas.Admin.Controllers
@@ -16,6 +17,7 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitofWork;
+        public OrderDetailsVM OrderDetailsVM { get; set; }
 
         public OrderController(IUnitOfWork unitofWork)
         {
@@ -24,6 +26,17 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Details(int id)
+        {
+            OrderDetailsVM = new OrderDetailsVM()
+            {
+                OrderHeader = _unitofWork.OrderHeader.GetFirstOrDefault(u => u.Id == id,
+                includeProperties: "ApplicationUser"),
+                OrderDetails = _unitofWork.OrderDetail.GetAll(u => u.OrderHeaderId == id, includeProperties: "Product")
+            };
+        return View(OrderDetailsVM);
         }
 
         #region API Calls
