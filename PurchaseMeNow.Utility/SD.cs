@@ -20,6 +20,7 @@ namespace PurchaseMeNow.Utility
         public const string OrderStatusDelivered = "Delivered";
         public const string OrderStatusCancelled = "Rejected";
         public const string OrderStatusRejected = "Rejected";
+        public const string OrderStatusShipped = "Shipped";
 
 
     }

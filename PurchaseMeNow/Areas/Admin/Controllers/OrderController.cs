@@ -39,6 +39,36 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
         return View(OrderDetailsVM);
         }
 
+        [Authorize(Roles = SD.Role_Admin)]
+        public IActionResult StartProcessing(int id)
+        {
+            OrderHeader OrderHeader = _unitofWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
+            OrderHeader.OrderStatus = SD.OrderStatusInProcess;
+            _unitofWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [Authorize(Roles = SD.Role_Admin)]
+        public IActionResult ShipOrder(int id)
+        {
+            OrderHeader OrderHeader = _unitofWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
+            OrderHeader.OrderStatus = SD.OrderStatusShipped;
+            OrderHeader.ShippingDate = DateTime.Now;
+            _unitofWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize(Roles = SD.Role_Admin)]
+        public IActionResult CancelOrder(int id)
+        {
+            OrderHeader OrderHeader = _unitofWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
+            OrderHeader.OrderStatus = SD.OrderStatusCancelled;
+            _unitofWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
+
+
         #region API Calls
         [HttpGet]
         public IActionResult GetOrderList(string status)

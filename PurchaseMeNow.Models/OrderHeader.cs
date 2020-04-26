@@ -20,6 +20,7 @@ namespace PurchaseMeNow.Models
 
         public string OrderStatus { get; set; }
 
+        public DateTime ShippingDate { get; set; }
 
     }
 }
