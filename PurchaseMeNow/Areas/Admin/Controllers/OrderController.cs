@@ -17,6 +17,7 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitofWork;
+        [BindProperty]
         public OrderDetailsVM OrderDetailsVM { get; set; }
 
         public OrderController(IUnitOfWork unitofWork)
@@ -50,9 +51,9 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
 
         [HttpPost]
         [Authorize(Roles = SD.Role_Admin)]
-        public IActionResult ShipOrder(int id)
+        public IActionResult ShipOrder()
         {
-            OrderHeader OrderHeader = _unitofWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
+            OrderHeader OrderHeader = _unitofWork.OrderHeader.GetFirstOrDefault(u => u.Id == OrderDetailsVM.OrderHeader.Id);
             OrderHeader.OrderStatus = SD.OrderStatusShipped;
             OrderHeader.ShippingDate = DateTime.Now;
             _unitofWork.Save();

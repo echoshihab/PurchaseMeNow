@@ -70,7 +70,7 @@
                             <br/>
                             @if (Model.OrderHeader.OrderStatus == SD.OrderStatusInProcess)
                             {
-                                <input type="submit" value="Ship Order" onclick="validateInput()"
+                                <input type="submit" value="Ship Order"
                                        class="btn btn-primary form-control" 
                                        formaction="/Admin/Order/ShipOrder" formmethod="post"/>
 
@@ -81,6 +81,13 @@
                                 <a asp-action="StartProcessing" asp-route-id="@Model.OrderHeader.Id" 
                                    class="btn btn-primary form-control">Start Processing</a>
                             }
+
+                            @if (Model.OrderHeader.OrderStatus != SD.OrderStatusRejected && User.IsInRole(SD.Role_Admin))
+                            {
+                        <a asp-action="CancelOrder" asp-route-id="@Model.OrderHeader.Id"
+                           class="btn btn-danger form-control">Cancel Order</a>
+                            }
+
                         </div>
                     </div>
                 </div>
