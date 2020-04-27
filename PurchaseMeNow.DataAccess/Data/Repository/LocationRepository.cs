@@ -6,13 +6,18 @@ using System.Text;
 
 namespace PurchaseMeNow.DataAccess.Data.Repository
 {
-    public class DeliveryDetailRepository: Repository<DeliveryDetail>, IDeliveryDetailRepository
+    public class LocationRepository: Repository<Location>, ILocationRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public DeliveryDetailRepository(ApplicationDbContext db): base(db)
+        public LocationRepository(ApplicationDbContext db): base(db)
         {
             _db = db;
+        }
+
+        public void Update(Location location)
+        {
+            _db.Update(location);
         }
     }
 }

@@ -17,25 +17,20 @@ namespace PurchaseMeNow.DataAccess.Data.Repository
             Order = new OrderRepository(_db);
             OrderHeader = new OrderHeaderRepository(_db);
             OrderDetail = new OrderDetailRepository(_db);
-            ApprovalDecision = new ApprovalDecisionRepository(_db);
-            PurchaseDecision = new PurchaseDecisionRepository(_db);
-            DeliveryDetail = new DeliveryDetailRepository(_db);
-
+            Location = new LocationRepository(_db);
 
         }
 
         public ICategoryRepository Category { get; private set; }
         public IDepartmentRepository Department { get; private set; }
+        public ILocationRepository Location { get; private set; }
         public IProductRepository Product { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
         public IOrderRepository Order { get; private set; }
         
         public IOrderHeaderRepository OrderHeader { get; private set; }
         public IOrderDetailRepository OrderDetail { get; private set; }
-        public IApprovalDecisionRepository ApprovalDecision { get; private set; }
-        public IPurchaseDecisionRepository PurchaseDecision { get; private set; }
-
-        public IDeliveryDetailRepository DeliveryDetail { get; private set; }
+       
 
         
 

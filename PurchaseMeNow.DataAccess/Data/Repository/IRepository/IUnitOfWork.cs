@@ -15,10 +15,6 @@ namespace PurchaseMeNow.DataAccess.Data.Repository.IRepository
         IOrderRepository Order { get; }
         IOrderHeaderRepository OrderHeader { get; }
         IOrderDetailRepository OrderDetail { get; }
-        IApprovalDecisionRepository ApprovalDecision { get; }
-        IPurchaseDecisionRepository PurchaseDecision { get; }
-
-        IDeliveryDetailRepository DeliveryDetail { get; }
 
         
         void Save();

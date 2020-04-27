@@ -5,8 +5,8 @@ using System.Text;
 
 namespace PurchaseMeNow.DataAccess.Data.Repository.IRepository
 {
-    public interface IDeliveryDetailRepository: IRepository<DeliveryDetail>
+    public interface ILocationRepository:IRepository<Location>
     {
-
+        void Update(Location location);
     }
 }

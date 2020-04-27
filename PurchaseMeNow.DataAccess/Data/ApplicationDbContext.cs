@@ -17,6 +17,7 @@ namespace PurchaseMeNow.DataAccess.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Department> Departments { get; set; }
 
+        public DbSet<Location> Locations { get; set; }
         public DbSet<Product> Products { get; set; }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
@@ -24,11 +25,7 @@ namespace PurchaseMeNow.DataAccess.Data
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<OrderHeader> OrderHeaders { get; set; }
-        public DbSet<ApprovalDecision> ApprovalDecisions { get; set; }
 
-        public DbSet<PurchaseDecision> PurchaseDecisions { get; set; }
-
-        public DbSet<DeliveryDetail> DeliveryDetails { get; set; }
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
     }
