@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using PurchaseMeNow.DataAccess.Data.Repository.IRepository;
 using PurchaseMeNow.Models;
@@ -41,6 +42,11 @@ namespace PurchaseMeNow.Areas.Client.Controllers
             OrderListVM OrderListVM = new OrderListVM()
             {
                 OrderHeader = new OrderHeader(),
+                LocationList = _unitOfWork.Location.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
                 OrderList = _unitOfWork.Order.GetAll(u => u.ApplicationUserId == claim.Value, 
                                                     includeProperties:"Product")
             };
@@ -56,33 +62,36 @@ namespace PurchaseMeNow.Areas.Client.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
-        public IActionResult IndexPost()
+        public IActionResult IndexPost(OrderListVM orderListVM)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(nameof(Index));
+            }
 
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            OrderListVM OrderListVM = new OrderListVM()
-            {
-                OrderHeader = new OrderHeader(),
-                OrderList = _unitOfWork.Order.GetAll(u => u.ApplicationUserId == claim.Value)
+
+            orderListVM.OrderHeader = new OrderHeader(){
+            OrderDate= DateTime.Now,
+            OrderStatus=SD.OrderStatusPending,
+            ApplicationUserId = claim.Value,
+            LocationId = orderListVM.SelectedLocationId
             };
+            orderListVM.OrderList = _unitOfWork.Order.GetAll(u => u.ApplicationUserId == claim.Value);
+           
 
-
-            OrderListVM.OrderHeader.OrderStatus = SD.OrderStatusPending;
-            OrderListVM.OrderHeader.ApplicationUserId = claim.Value;
-            OrderListVM.OrderHeader.OrderDate = DateTime.Now;
-
-            _unitOfWork.OrderHeader.Add(OrderListVM.OrderHeader);
+            _unitOfWork.OrderHeader.Add(orderListVM.OrderHeader);
             _unitOfWork.Save(); //need to save here so that orderheader ID is populated
 
 
-            foreach (var item in OrderListVM.OrderList)
+            foreach (var item in orderListVM.OrderList)
             {
                 OrderDetail orderDetail = new OrderDetail()
                 {
                     ProductId = item.ProductId,
-                    OrderHeaderId = OrderListVM.OrderHeader.Id,
+                    OrderHeaderId = orderListVM.OrderHeader.Id,
                     Count = item.Count
 
                 };
@@ -90,11 +99,11 @@ namespace PurchaseMeNow.Areas.Client.Controllers
                
             }
 
-            _unitOfWork.Order.RemoveRange(OrderListVM.OrderList);
+            _unitOfWork.Order.RemoveRange(orderListVM.OrderList);
             _unitOfWork.Save();
             HttpContext.Session.SetInt32(SD.ssOrder, 0);
 
-            return RedirectToAction("OrderConfirmation", "Order", new { id = OrderListVM.OrderHeader.Id });
+            return RedirectToAction("OrderConfirmation", "Order", new { id = orderListVM.OrderHeader.Id });
 
         }
 

@@ -15,6 +15,11 @@ namespace PurchaseMeNow.Models
 
         public ApplicationUser ApplicationUser { get; set; }
 
+        public int? LocationId { get; set; }
+        [ForeignKey("LocationId")]
+
+        public Location Location { get; set; }
+
         [Required]
         public DateTime OrderDate { get; set; }
 
