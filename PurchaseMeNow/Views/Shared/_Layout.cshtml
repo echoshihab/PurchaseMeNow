@@ -39,7 +39,8 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     @if (User.IsInRole(SD.Role_Admin))
                                     {
-                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Location" asp-action="Index">Location</a>
                                     }
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a>
                                 </div>

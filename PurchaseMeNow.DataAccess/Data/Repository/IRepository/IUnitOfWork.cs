@@ -9,7 +9,7 @@ namespace PurchaseMeNow.DataAccess.Data.Repository.IRepository
         ICategoryRepository Category { get; }
         IDepartmentRepository Department { get; }
         IProductRepository Product { get; }
-
+        ILocationRepository Location { get; }
         IApplicationUserRepository ApplicationUser { get; }
 
         IOrderRepository Order { get; }

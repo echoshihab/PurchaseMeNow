@@ -50,7 +50,7 @@ namespace PurchaseMeNow
 
             //add unit of work as part of dependency injection
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.ConfigureApplicationCookie(options =>
             {
