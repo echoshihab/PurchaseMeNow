@@ -83,6 +83,11 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
             {
                 orderHeaderList = _unitofWork.OrderHeader.GetAll(includeProperties: "ApplicationUser");
             }
+            else if(User.IsInRole(SD.Role_Coordinator))
+            {
+                var coordinatorDeptId = _unitofWork.ApplicationUser.GetFirstOrDefault(u => u.Id == claim.Value).DepartmentId;
+                orderHeaderList = _unitofWork.OrderHeader.GetAll(u=>u.ApplicationUser.DepartmentId==coordinatorDeptId, includeProperties: "ApplicationUser");
+            }
             else
             {
                 orderHeaderList = _unitofWork.OrderHeader.GetAll(u=> u.ApplicationUserId == claim.Value, includeProperties: "ApplicationUser");
