@@ -31,12 +31,24 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
 
         public IActionResult Details(int id)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
             OrderDetailsVM = new OrderDetailsVM()
             {
                 OrderHeader = _unitofWork.OrderHeader.GetFirstOrDefault(u => u.Id == id,
                 includeProperties: "ApplicationUser,Location"),
-                OrderDetails = _unitofWork.OrderDetail.GetAll(u => u.OrderHeaderId == id, includeProperties: "Product")
+                OrderDetails = _unitofWork.OrderDetail.GetAll(u => u.OrderHeaderId == id, includeProperties: "Product"),
+                OrderingClient = false
             };
+
+            //if the user viewing detail is the person who ordered it- will use this for confirm delivery permission
+            if(OrderDetailsVM.OrderHeader.ApplicationUserId == claim.Value)
+            {
+                OrderDetailsVM.OrderingClient = true;
+            }
+            
+
         return View(OrderDetailsVM);
         }
 
@@ -64,7 +76,16 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult ConfirmDelivery(int id)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             OrderHeader OrderHeader = _unitofWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
+
+            
+            if (!User.IsInRole(SD.Role_Admin) && !User.IsInRole(SD.Role_Coordinator) && claim.Value != OrderHeader.ApplicationUserId)
+            {
+                return Redirect("/Identity/Account/AccessDenied");
+            }
+
             OrderHeader.OrderStatus = SD.OrderStatusDelivered;
             _unitofWork.Save();
             return RedirectToAction(nameof(Index));

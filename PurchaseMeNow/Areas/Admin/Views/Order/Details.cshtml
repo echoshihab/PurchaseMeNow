@@ -2,6 +2,7 @@
 @using PurchaseMeNow.Utility
 
 
+
 <form method="post">
     <input hidden asp-for="OrderHeader.Id" />
     <br />
@@ -94,8 +95,10 @@
                                    class="btn btn-success form-control"><strong>Approve Order</strong></a>
                             }
 
-                            @if (Model.OrderHeader.OrderStatus == SD.OrderStatusShipped)
+                            @if ((Model.OrderHeader.OrderStatus == SD.OrderStatusShipped) && (User.IsInRole(SD.Role_Admin)  || User.IsInRole(SD.Role_Coordinator) ||
+                                    Model.OrderingClient))
                             {
+                               
                                 <a asp-action="ConfirmDelivery" asp-route-id="@Model.OrderHeader.Id"
                                    class="btn btn-success form-control"><strong>Confirm Delivery</strong></a>
                             }

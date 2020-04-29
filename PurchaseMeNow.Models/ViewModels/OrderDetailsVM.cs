@@ -9,5 +9,7 @@ namespace PurchaseMeNow.Models.ViewModels
         public OrderHeader OrderHeader { get; set; }
         public IEnumerable<OrderDetail> OrderDetails { get; set; }
 
+        public bool OrderingClient { get; set; } 
+
     }
 }
