@@ -8,7 +8,8 @@
     var pending = "text-primary";
     var inprocess = "text-primary";
     var rejected = "text-primary";
-    var completed = "text-primary";
+    var shipped = "text-primary";
+    var delivered = "text-primary";
     var all = "text-primary";
 
     switch (status)
@@ -22,8 +23,11 @@
         case "rejected":
             rejected = "active text-black";
             break;
+        case "shipped":
+            shipped = "active text-black";
+            break;
         case "completed":
-            completed = "active text-black";
+            delivered  = "active text-black";
             break;
         default: 
             all = "active text-black";
@@ -54,13 +58,18 @@
                     <li class="list-group-item @inprocess">In Process</li>
                 </a>
 
+
+                <a style="text-decoration:none;" asp-controller="Order"
+                   asp-action="Index" asp-route-status="shipped">
+                    <li class="list-group-item @shipped">Shipped</li>
+                </a>
+                <a style="text-decoration:none;" asp-controller="Order"
+                   asp-action="Index" asp-route-status="delivered">
+                    <li class="list-group-item @delivered">Delivered</li>
+                </a>
                 <a style="text-decoration:none;" asp-controller="Order"
                    asp-action="Index" asp-route-status="rejected">
                     <li class="list-group-item @rejected">Rejected</li>
-                </a>
-                <a style="text-decoration:none;" asp-controller="Order"
-                   asp-action="Index" asp-route-status="completed">
-                    <li class="list-group-item @completed">Completed</li>
                 </a>
                 <a style="text-decoration:none;" asp-controller="Order"
                    asp-action="Index" asp-route-status="all">

@@ -68,17 +68,18 @@
                                                 <input type="hidden" asp-for="@details.Id" />
                                                 <h6 class="my-0">
                                                     @details.Product.Name
-                                                <strong> x @details.Count</strong>
-                                            </h6>
+                                                    <strong> x @details.Count</strong>
+                                                </h6>
 
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                            }
+                                    </li>
+                                }
                             </ul>
 
                             <br />
-                            @if (Model.OrderHeader.OrderStatus == SD.OrderStatusInProcess)
+                            <label class="badge-info form-control text-center"><em> Status: @Model.OrderHeader.OrderStatus </em></label>
+                            @if (Model.OrderHeader.OrderStatus == SD.OrderStatusInProcess && User.IsInRole(SD.Role_Admin))
                             {
 
                                 <input type="submit" value="Ship Order"
@@ -86,16 +87,16 @@
                                        formaction="/Admin/Order/ShipOrder" formmethod="post" />
 
                             }
-                            else
-                            {
-                                <label class="badge-info form-control text-center"><em> Status: @Model.OrderHeader.OrderStatus </em></label>
 
+                            @if(Model.OrderHeader.OrderStatus == SD.OrderStatusPending && (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Coordinator)))
+                            {
+                            <a asp-action="StartProcessing" asp-route-id="@Model.OrderHeader.Id"
+                               class="btn btn-success form-control"><strong>Approve Order</strong></a>
                             }
 
                             @if (Model.OrderHeader.OrderStatus != SD.OrderStatusRejected && (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Coordinator)))
                             {
-                                <a asp-action="StartProcessing" asp-route-id="@Model.OrderHeader.Id"
-                                   class="btn btn-success form-control"><strong>Approve Order</strong></a>
+
                                 <a asp-action="CancelOrder" asp-route-id="@Model.OrderHeader.Id"
                                    class="btn btn-danger form-control mt-1"><strong>Cancel Order</strong></a>
                             }
