@@ -105,7 +105,10 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
                     orderHeaderList = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusRejected 
                                                         ||  o.OrderStatus ==SD.OrderStatusCancelled);
                     break;
-                case "completed":
+                case "shipped":
+                    orderHeaderList = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusShipped);
+                    break;
+                case "delivered":
                     orderHeaderList = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusDelivered);
                     break;
                 default:
