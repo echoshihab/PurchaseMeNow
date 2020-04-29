@@ -34,13 +34,13 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
             OrderDetailsVM = new OrderDetailsVM()
             {
                 OrderHeader = _unitofWork.OrderHeader.GetFirstOrDefault(u => u.Id == id,
-                includeProperties: "ApplicationUser"),
+                includeProperties: "ApplicationUser,Location"),
                 OrderDetails = _unitofWork.OrderDetail.GetAll(u => u.OrderHeaderId == id, includeProperties: "Product")
             };
         return View(OrderDetailsVM);
         }
 
-        [Authorize(Roles = SD.Role_Admin)]
+        [Authorize(Roles = SD.Role_Admin+","+SD.Role_Coordinator)]
         public IActionResult StartProcessing(int id)
         {
             OrderHeader OrderHeader = _unitofWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);

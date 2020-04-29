@@ -30,21 +30,29 @@
                                     <input readonly type="text" class="form-control" asp-for="@Model.OrderHeader.ApplicationUser.Name" />
                                 </div>
                             </div>
-                          
+
                             <div class="row my-1">
                                 <div class="col-3">Email</div>
                                 <div class="col-9">
-                                    <input id="txtName" readonly type="text" class="form-control" asp-for="@Model.OrderHeader.ApplicationUser.Email"/>
+                                    <input id="txtName" readonly type="text" class="form-control" asp-for="@Model.OrderHeader.ApplicationUser.Email" />
                                 </div>
                             </div>
                             <div class="row my-1">
-                                <div class="col-3">Order Date</div>
+                                <div class="col-3">Location</div>
                                 <div class="col-9">
-                                    <input value="@Model.OrderHeader.OrderDate.ToShortDateString()" type="text" readonly class="form-control" />
+                                    <input id="txtName" readonly type="text" class="form-control" asp-for="@Model.OrderHeader.Location.Name" />
                                 </div>
                             </div>
-                   
-                            
+
+
+                            <div class="row my-1">
+                                <div class="col-3">Order Date</div>
+                                <div class="col-9">
+                                    <input value="@Model.OrderHeader.OrderDate.ToLongDateString()" type="text" readonly class="form-control" />
+                                </div>
+                            </div>
+
+
                         </div>
                         <div class="col-12 col-lg-5 offset-lg-1">
                             <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -58,34 +66,38 @@
                                         <div class="row container">
                                             <div class="col-8">
                                                 <input type="hidden" asp-for="@details.Id" />
-                                                <h6 class="my-0">@details.Product.Name   
-                                                <strong > x @details.Count</strong></h6>
-                                               
-                                            </div>
+                                                <h6 class="my-0">
+                                                    @details.Product.Name
+                                                <strong> x @details.Count</strong>
+                                            </h6>
+
                                         </div>
-                                    </li>
-                                }
+                                    </div>
+                                </li>
+                            }
                             </ul>
 
-                            <br/>
+                            <br />
                             @if (Model.OrderHeader.OrderStatus == SD.OrderStatusInProcess)
                             {
+
                                 <input type="submit" value="Ship Order"
-                                       class="btn btn-primary form-control" 
-                                       formaction="/Admin/Order/ShipOrder" formmethod="post"/>
+                                       class="btn btn-primary form-control"
+                                       formaction="/Admin/Order/ShipOrder" formmethod="post" />
 
                             }
                             else
                             {
-                                <label class="btn btn-primary form-control">@Model.OrderHeader.OrderStatus</label>
-                                <a asp-action="StartProcessing" asp-route-id="@Model.OrderHeader.Id" 
-                                   class="btn btn-primary form-control">Start Processing</a>
+                                <label class="badge-info form-control text-center"><em> Status: @Model.OrderHeader.OrderStatus </em></label>
+
                             }
 
-                            @if (Model.OrderHeader.OrderStatus != SD.OrderStatusRejected && User.IsInRole(SD.Role_Admin))
+                            @if (Model.OrderHeader.OrderStatus != SD.OrderStatusRejected && (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Coordinator)))
                             {
-                        <a asp-action="CancelOrder" asp-route-id="@Model.OrderHeader.Id"
-                           class="btn btn-danger form-control">Cancel Order</a>
+                                <a asp-action="StartProcessing" asp-route-id="@Model.OrderHeader.Id"
+                                   class="btn btn-success form-control"><strong>Approve Order</strong></a>
+                                <a asp-action="CancelOrder" asp-route-id="@Model.OrderHeader.Id"
+                                   class="btn btn-danger form-control mt-1"><strong>Cancel Order</strong></a>
                             }
 
                         </div>
