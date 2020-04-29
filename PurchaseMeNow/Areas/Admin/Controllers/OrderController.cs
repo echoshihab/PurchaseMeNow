@@ -60,6 +60,17 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        [HttpGet]
+        public IActionResult ConfirmDelivery(int id)
+        {
+            OrderHeader OrderHeader = _unitofWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
+            OrderHeader.OrderStatus = SD.OrderStatusDelivered;
+            _unitofWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
+
+
         [Authorize(Roles = SD.Role_Admin)]
         public IActionResult CancelOrder(int id)
         {

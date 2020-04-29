@@ -88,13 +88,21 @@
 
                             }
 
-                            @if(Model.OrderHeader.OrderStatus == SD.OrderStatusPending && (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Coordinator)))
+                            @if (Model.OrderHeader.OrderStatus == SD.OrderStatusPending && (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Coordinator)))
                             {
-                            <a asp-action="StartProcessing" asp-route-id="@Model.OrderHeader.Id"
-                               class="btn btn-success form-control"><strong>Approve Order</strong></a>
+                                <a asp-action="StartProcessing" asp-route-id="@Model.OrderHeader.Id"
+                                   class="btn btn-success form-control"><strong>Approve Order</strong></a>
                             }
 
-                            @if (Model.OrderHeader.OrderStatus != SD.OrderStatusRejected && (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Coordinator)))
+                            @if (Model.OrderHeader.OrderStatus == SD.OrderStatusShipped)
+                            {
+                                <a asp-action="ConfirmDelivery" asp-route-id="@Model.OrderHeader.Id"
+                                   class="btn btn-success form-control"><strong>Confirm Delivery</strong></a>
+                            }
+
+                            @if ((Model.OrderHeader.OrderStatus != SD.OrderStatusRejected && Model.OrderHeader.OrderStatus != SD.OrderStatusShipped
+                               && Model.OrderHeader.OrderStatus != SD.OrderStatusDelivered)
+                               && (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Coordinator)))
                             {
 
                                 <a asp-action="CancelOrder" asp-route-id="@Model.OrderHeader.Id"
