@@ -1,44 +1,312 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
-}
-
-/* Provide sufficient contrast against white background */
-a {
-    color: #0366d6;
-}
-
-/* remove bhrugen
-    .btn-primary {
-  color: #fff;
-  background-color: #2c3e50;
-  border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  
-  /*background-color: #1b6ec2;*/
-background-color: #2c3e50;
-border-color: #1861ac;
-}
-
+﻿/**
+* Template Name: Vesperr - v2.0.0
+* Template URL: https://bootstrapmade.com/vesperr-free-bootstrap-template/
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
 */
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    font-size: 14px;
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+    font-family: "Open Sans", sans-serif;
+    color: #444444;
 }
 
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway", sans-serif;
+}
+
+
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+#header {
+    height: 80px;
+    z-index: 997;
+    transition: all 0.5s;
+}
+
+
+
+    #header .logo h1 {
+        font-size: 32px;
+        margin: 0;
+        padding: 0;
+        line-height: 1;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+        #header .logo h1 a, #header .logo h1 a:hover {
+            color: #222222;
+            text-decoration: none;
+        }
+
+
+
+@media (max-width: 768px) {
+    #header {
+        box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+        height: 60px;
+        background: #fff;
     }
 }
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/* Desktop Navigation */
+.nav-menu, .nav-menu * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .nav-menu > ul > li {
+        position: relative;
+        white-space: nowrap;
+        float: left;
+    }
+
+    .nav-menu a {
+        display: block;
+        position: relative;
+        color: #555555;
+        padding: 8px 0 12px 25px;
+        transition: 0.3s;
+        font-size: 14px;
+        font-family: "Open Sans", sans-serif;
+    }
+
+        .nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+    .nav-menu .get-started a {
+        background: #3498db;
+        color: #fff;
+        border-radius: 50px;
+        margin: 0 0 0 30px;
+        padding: 10px 25px;
+    }
+
+        .nav-menu .get-started a:hover {
+            background: #57aae1;
+            color: #fff;
+        }
+
+    .nav-menu .drop-down ul {
+        display: block;
+        position: absolute;
+        left: 25px;
+        top: calc(100% + 30px);
+        z-index: 99;
+        opacity: 0;
+        visibility: hidden;
+        padding: 10px 0;
+        background: #fff;
+        box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+        transition: ease all 0.3s;
+        border-radius: 5px;
+    }
+
+    .nav-menu .drop-down:hover > ul {
+        opacity: 1;
+        top: 100%;
+        visibility: visible;
+    }
+
+    .nav-menu .drop-down li {
+        min-width: 180px;
+        position: relative;
+    }
+
+    .nav-menu .drop-down ul a {
+        padding: 10px 20px;
+        font-size: 14px;
+        text-transform: none;
+        color: #222222;
+    }
+
+        .nav-menu .drop-down ul a:hover, .nav-menu .drop-down ul .active > a, .nav-menu .drop-down ul li:hover > a {
+            color: #3498db;
+        }
+
+    .nav-menu .drop-down > a:after {
+        content: "\ea99";
+        font-family: IcoFont;
+        padding-left: 5px;
+    }
+
+    .nav-menu .drop-down .drop-down ul {
+        top: 0;
+        left: calc(100% - 30px);
+    }
+
+    .nav-menu .drop-down .drop-down:hover > ul {
+        opacity: 1;
+        top: 0;
+        left: 100%;
+    }
+
+    .nav-menu .drop-down .drop-down > a {
+        padding-right: 35px;
+    }
+
+        .nav-menu .drop-down .drop-down > a:after {
+            content: "\eaa0";
+            font-family: IcoFont;
+            position: absolute;
+            right: 15px;
+        }
+
+@media (max-width: 1366px) {
+    .nav-menu .drop-down .drop-down ul {
+        left: -90%;
+    }
+
+    .nav-menu .drop-down .drop-down:hover > ul {
+        left: -100%;
+    }
+
+    .nav-menu .drop-down .drop-down > a:after {
+        content: "\ea9d";
+    }
+}
+
+/* Mobile Navigation */
+.mobile-nav-toggle {
+    position: fixed;
+    right: 15px;
+    top: 15px;
+    z-index: 9998;
+    border: 0;
+    background: none;
+    font-size: 24px;
+    transition: all 0.4s;
+    outline: none !important;
+    line-height: 1;
+    cursor: pointer;
+    text-align: right;
+}
+
+    .mobile-nav-toggle i {
+        color: #222222;
+    }
+
+.mobile-nav {
+    position: fixed;
+    top: 55px;
+    right: 15px;
+    bottom: 15px;
+    left: 15px;
+    z-index: 9999;
+    overflow-y: auto;
+    background: #fff;
+    transition: ease-in-out 0.2s;
+    opacity: 0;
+    visibility: hidden;
+    border-radius: 10px;
+    padding: 10px 0;
+}
+
+    .mobile-nav * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .mobile-nav a {
+        display: block;
+        position: relative;
+        color: #222222;
+        padding: 10px 20px;
+        font-weight: 500;
+        outline: none;
+    }
+
+        .mobile-nav a:hover, .mobile-nav .active > a, .mobile-nav li:hover > a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+    .mobile-nav .get-started {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+        .mobile-nav .get-started a {
+            background: #3498db;
+            color: #fff;
+            border-radius: 50px;
+            margin: 0 15px;
+            padding: 10px 30px;
+            display: inline-block;
+        }
+
+            .mobile-nav .get-started a:hover {
+                background: #57aae1;
+                color: #fff;
+            }
+
+    .mobile-nav .drop-down > a:after {
+        content: "\ea99";
+        font-family: IcoFont;
+        padding-left: 10px;
+        position: absolute;
+        right: 15px;
+    }
+
+    .mobile-nav .active.drop-down > a:after {
+        content: "\eaa1";
+    }
+
+    .mobile-nav .drop-down > a {
+        padding-right: 35px;
+    }
+
+    .mobile-nav .drop-down ul {
+        display: none;
+        overflow: hidden;
+    }
+
+    .mobile-nav .drop-down li {
+        padding-left: 20px;
+    }
+
+.mobile-nav-overly {
+    width: 100%;
+    height: 100%;
+    z-index: 9997;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: rgba(9, 9, 9, 0.6);
+    overflow: hidden;
+    display: none;
+    transition: ease-in-out 0.2s;
+}
+
+.mobile-nav-active {
+    overflow: hidden;
+}
+
+    .mobile-nav-active .mobile-nav {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .mobile-nav-active .mobile-nav-toggle i {
+        color: #fff;
+    }
+
+
+/* Vesper end*/
 
 .border-top {
     border-top: 1px solid #e5e5e5;
@@ -57,25 +325,6 @@ button.accept-policy {
     line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-}
-
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
-}
 
 
 .boxContainer {

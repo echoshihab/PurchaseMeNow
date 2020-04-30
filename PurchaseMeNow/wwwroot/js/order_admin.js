@@ -24,7 +24,7 @@ function loadDataTable(url) {
             {
                 "data": "id", "render": function (data) {
                     return ` <div class="text-center">
-                                <a href="/Admin/Order/Details/${data}" class="btn btn-sm btn-success text-white" style="cursor:pointer">
+                                <a href="/Admin/Order/Details/${data}" class="btn btn-sm btn-info text-white" style="cursor:pointer">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             

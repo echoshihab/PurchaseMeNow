@@ -8,15 +8,63 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PurchaseMeNow</title>
+
+
+    <!--Font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!--CSS-->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="~/icofont/icofont.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-4">
+   
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container d-flex align-items-center">
+
+            <div class="logo mr-auto">
+                <h1 class="text-light"><a href="index.html"><span>PurchaseMeNow</span></a></h1>
+
+            </div>
+
+            <nav class="nav-menu d-none d-lg-block">
+                <ul>
+                    <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+
+
+                    @if (User.IsInRole(SD.Role_Admin))
+                    {
+                        <li class="drop-down">
+                            <a href="">Content Management</a>
+                            <ul>
+                                <li><a asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a></li>
+                                <li><a asp-area="Admin" asp-controller="Location" asp-action="Index">Location</a></li>
+                                <li><a asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="drop-down">
+                            <a href="">User Management</a>
+                            <ul>
+                                <li><a asp-area="Admin" asp-controller="User" asp-action="Index">User</a></li>
+                                <li><a asp-area="Admin" asp-controller="Department" asp-action="Index">Department</a></li>
+                            </ul>
+                        </li>
+                    }
+
+                    <li><a asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a></li>
+
+                    <li class="get-started"><partial name="_LoginPartial" /></li>
+                </ul>
+            </nav><!-- .nav-menu -->
+
+        </div>
+
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-4">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PurchaseMeNow</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -95,7 +143,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav>*@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
