@@ -56,7 +56,36 @@
                         </li>
                     }
 
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-area="Client" asp-controller="Product" asp-action="Index">Products</a></li>
+                    }
+
                     <li><a asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a></li>
+
+                    @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssOrder) != null)
+                    {
+                        <li>
+                            <a asp-area="Client" asp-controller="Order" asp-action="Index" >
+                                @{
+                                    var count = HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssOrder);
+                                }
+                                <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li >
+                            <a href="#" >
+                                @{
+                                    var count = HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssOrder);
+                                }
+                                <i class="fas fa-shopping-cart"></i> &nbsp; (0)
+                            </a>
+                        </li>
+                    }
+
 
                     <li class="get-started"><partial name="_LoginPartial" /></li>
                 </ul>
