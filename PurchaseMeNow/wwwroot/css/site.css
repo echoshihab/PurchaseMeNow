@@ -308,6 +308,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Vesper end*/
 
+hr.style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
+}
+
 .border-top {
     border-top: 1px solid #e5e5e5;
 }
