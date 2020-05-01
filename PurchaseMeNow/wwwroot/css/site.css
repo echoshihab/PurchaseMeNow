@@ -454,3 +454,13 @@ button.accept-policy {
     width: 210px !important;
     margin: 0 auto;
 }
+
+
+@media (max-width: 768px) {
+   
+    .logout {
+
+        margin-top:10%;
+        width:100%;
+    }
+}
