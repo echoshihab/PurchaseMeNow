@@ -554,8 +554,8 @@ pre {
 
 .container {
     width: 100%;
-    padding-right: 10px; /*previous value - 15 */
-    padding-left: 10px; /*previous value - 15*/
+    padding-right: 15px;
+    padding-left: 15px; 
     margin-right: auto;
     margin-left: auto;
 }

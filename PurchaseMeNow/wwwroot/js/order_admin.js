@@ -21,6 +21,9 @@ function loadDataTable(url) {
             "infoEmpty": "Nothing found!",
         },
         "columns": [
+       
+            { "data": "applicationUser.name", "width": "40%" },
+            { "data": "orderStatus", "width": "40%" },
             {
                 "data": "id", "render": function (data) {
                     return ` <div class="text-center">
@@ -30,10 +33,8 @@ function loadDataTable(url) {
                             
                         </div>
 `
-                }, "width": "10%"
-            },
-            { "data": "applicationUser.name", "width": "40%" },
-            { "data": "orderStatus", "width": "40%" },
+                }, "width": "20%"
+            }
 
             
             

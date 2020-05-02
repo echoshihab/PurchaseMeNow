@@ -464,3 +464,34 @@ button.accept-policy {
         width:100%;
     }
 }
+
+/*Ovverride Bootstrap*/
+/*
+ * Table styles
+ */
+
+
+.table .thead-light th {
+    border-color: black;
+}
+
+.table-bordered {
+    border: 1px solid black;
+}
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid black;
+    }
+
+    .table-bordered thead th,
+    .table-bordered thead td {
+        border-bottom-width: 1px;
+    }
+
+
+/*Container*/
+.container {
+    padding-right: 10px;
+    padding-left: 10px;
+}

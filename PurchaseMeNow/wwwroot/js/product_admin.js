@@ -13,6 +13,7 @@ function loadDataTable() {
             "infoEmpty": "Nothing found!",
         },
         "columns": [
+  
             { "data": "name", "width": "25%" },
             { "data": "description", "width": "25%" },
             { "data": "category.name", "width": "20%" },
@@ -28,8 +29,10 @@ function loadDataTable() {
                             </a>
                         </div>
 `
-                }, "width": "40%"
+                }, "width": "10%"
             }
+           
+      
         ]
 
     });

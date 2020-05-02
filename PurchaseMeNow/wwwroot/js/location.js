@@ -13,11 +13,12 @@ function loadDataTable() {
             "infoEmpty": "Nothing found!",
         },
         "columns": [
-            { "data": "name", "width": "60%" },
+           
+            { "data": "name", "width": "80%" },
             {
                 "data": "id", "render": function (data) {
                     return ` <div class="text-center">
-                                <a href="/Admin/Location/Upsert/${data}" class="btn btn-sm btn-success text-white" style="cursor:pointer">
+                                <a href="/Admin/Location/Upsert/${data}" class="btn btn-sm btn-info text-white" style="cursor:pointer">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             <a onclick=Delete("/Admin/Location/Delete/${data}") class="btn btn-sm btn-danger text-white" style="cursor:pointer">
@@ -25,8 +26,9 @@ function loadDataTable() {
                             </a>
                         </div>
 `
-                }, "width": "40%"
-            }
+                }, "width": "20%"
+            },
+
         ]
 
     });

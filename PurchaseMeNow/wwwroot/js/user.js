@@ -13,6 +13,7 @@ function loadDataTable() {
             "infoEmpty": "Nothing found!",
         },
         "columns": [
+
             { "data": "name", "width": "25%" },
             { "data": "email", "width": "25%" },
             { "data": "department.name", "width": "15%" },
@@ -26,31 +27,35 @@ function loadDataTable() {
                     var lockout = new Date(data.lockoutEnd).getTime();
                     if (lockout > today) {
                         return ` <div class="text-center">
+                                  <a href="/Admin/User/Edit/${data.id}" class="btn btn-sm btn-info text-white" style="cursor:pointer">
+                                    <i class="fas fa-edit"></i>
+                            </a>
                             <a onclick=ToggleLock('${data.id}') class="btn btn-sm btn-success text-white" style="cursor:pointer">
                                 <i class="fas fa-lock-open"></i> Unlock 
                             </a>
-                        <a href="/Admin/User/Edit/${data.id}" class="btn btn-sm btn-success text-white" style="cursor:pointer">
-                                    <i class="fas fa-edit"></i>
-                            </a>
+                      
                         </div>
                             `;
                     }
                     else {
                         return ` <div class="text-center">
+                            <a href="/Admin/User/Edit/${data.id}" class="btn btn-sm btn-info text-white" style="cursor:pointer">
+                                    <i class="fas fa-edit"></i>
+                             </a>
                             <a onclick=ToggleLock('${data.id}') class="btn btn-sm btn-danger text-white" style="cursor:pointer">
                                 <i class="fas fa-lock"></i> Lock 
                             </a>
-                            <a href="/Admin/User/Edit/${data.id}" class="btn btn-sm btn-success text-white" style="cursor:pointer">
-                                    <i class="fas fa-edit"></i>
-                             </a>
+
                          
                         </div>
                             `;
                     }
 
                 }, "width": "20%"
+            },
+         
 
-            }
+            
         ]
 
     });
