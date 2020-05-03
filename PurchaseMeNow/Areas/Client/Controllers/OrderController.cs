@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -34,6 +35,7 @@ namespace PurchaseMeNow.Areas.Client.Controllers
 
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;

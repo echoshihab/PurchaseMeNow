@@ -495,3 +495,41 @@ button.accept-policy {
     padding-right: 10px;
     padding-left: 10px;
 }
+
+
+/*breadcrumb*/
+.list-group-horizontal .list-group-item {
+    display: inline-block;
+    border: 1px solid black;
+    font-weight:bold;
+    color:black;
+}
+
+}
+
+
+.list-group-horizontal .list-group-item {
+    margin-bottom: 0;
+    margin-left: -4px;
+    margin-right: 3px;
+
+
+}
+
+    .list-group-horizontal .list-group-item:first-child {
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 4px;
+    
+
+    }
+
+    .list-group-horizontal .list-group-item:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-left-radius: 0;
+
+    }
+
+.bg-darkblue{
+    background-color:darkblue;
+}
+
