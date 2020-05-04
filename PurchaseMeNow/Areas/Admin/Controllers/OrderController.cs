@@ -151,6 +151,48 @@ namespace PurchaseMeNow.Areas.Admin.Controllers
             return Json(new { data = orderHeaderList });
         }
 
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetOrderCount()
+        {
+            int pendingCount=0, inProcessCount = 0, shippedCount = 0, rejectedCount = 0;
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (User.IsInRole(SD.Role_Admin))
+            {
+                pendingCount = _unitofWork.OrderHeader.GetAll().Where(o => o.OrderStatus == SD.OrderStatusPending).Count();
+                inProcessCount = _unitofWork.OrderHeader.GetAll().Where(o => o.OrderStatus == SD.OrderStatusInProcess).Count();
+                shippedCount = _unitofWork.OrderHeader.GetAll().Where(o => o.OrderStatus == SD.OrderStatusShipped).Count();
+                rejectedCount = _unitofWork.OrderHeader.GetAll().Where(o => o.OrderStatus == SD.OrderStatusRejected).Count();
+
+            }
+            else if (User.IsInRole(SD.Role_Coordinator))
+            {
+                
+
+                var coordinatorDeptId = _unitofWork.ApplicationUser.GetFirstOrDefault(u => u.Id == claim.Value).DepartmentId;
+                var orderHeaderList = _unitofWork.OrderHeader.GetAll(u => u.ApplicationUser.DepartmentId == coordinatorDeptId);
+                pendingCount = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusPending).Count();
+                inProcessCount = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusInProcess).Count();
+                shippedCount = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusShipped).Count();
+                rejectedCount = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusRejected).Count();
+            }
+
+            else
+            {
+                var orderHeaderList = _unitofWork.OrderHeader.GetAll(u => u.ApplicationUserId == claim.Value);
+                pendingCount = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusPending).Count();
+                inProcessCount = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusInProcess).Count();
+                shippedCount = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusShipped).Count();
+                rejectedCount = orderHeaderList.Where(o => o.OrderStatus == SD.OrderStatusRejected).Count();
+            }
+
+
+            return Json(new { pendingCount, inProcessCount, shippedCount, rejectedCount });
+           
+        }
+
         #endregion
     }
 }

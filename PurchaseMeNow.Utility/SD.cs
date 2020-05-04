@@ -23,13 +23,5 @@ namespace PurchaseMeNow.Utility
         public const string OrderStatusShipped = "Shipped";
 
 
-
-        //Roles enum
-
-        public enum Roles{
-            Admin=1,
-            Coordinator,
-            Employee
-        }
     }
 }

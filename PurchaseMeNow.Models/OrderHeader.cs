@@ -28,12 +28,6 @@ namespace PurchaseMeNow.Models
 
         public DateTime ShippingDate { get; set; }
 
-        [DefaultValue(false)]
-        public bool SeenByEmployee { get; set; }
-        [DefaultValue(false)]
-        public bool SeenByAdmin { get; set; }
-        [DefaultValue(false)]
-        public bool SeenByCoordinator { get; set; }
 
     }
 }

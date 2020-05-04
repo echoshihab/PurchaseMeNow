@@ -103,13 +103,44 @@
         </main>
     </div>
 
+    @if (User.Identity.IsAuthenticated)
+    {
+        <footer class="container-fluid  footer border-top">
+
+
+                <div class="notification">
+
+                    <a class="badge badge-dark pt-2 pl-2" asp-area="Admin" asp-controller="Order" asp-action="Index" asp-route-status="pending">
+                        Pending <sup class="badge badge-pill badge-danger" id="pendingCount"></sup>
+                    </a>
+                    <a class="badge badge-dark pt-2 pl-2" asp-area="Admin" asp-controller="Order" asp-route-status="inprocess">
+                        In Process <sup class="badge badge-pill badge-danger" id="inProcessCount"></sup>
+                    </a>
+                    <a class="badge badge-dark pt-2 pl-2" asp-area="Admin" asp-controller="Order" asp-route-status="shipped">
+                        Shipped <sup class="badge badge-pill badge-danger" id="shippedCount"></sup>
+                    </a>
+                    <a class="badge badge-dark pt-2 pl-2" asp-area="Admin" asp-controller="Order" asp-route-status="rejected">
+                        Rejected <sup class="badge badge-pill badge-danger" id="rejectedCount"></sup>
+                    </a>
+
+                </div>
+
+
+        </footer>
+
+    }
+
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script src="~/js/notification.js"></script>
+    }
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://kit.fontawesome.com/e19c476714.js"></script>

@@ -91,6 +91,7 @@ namespace PurchaseMeNow.Areas.Identity.Pages.Account
                     var user = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Email == Input.Email);
                     int count = _unitOfWork.Order.GetAll(u => u.ApplicationUserId == user.Id).Count();
                     HttpContext.Session.SetInt32(SD.ssOrder, count);
+  
 
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
