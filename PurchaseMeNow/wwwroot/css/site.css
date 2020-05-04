@@ -550,3 +550,10 @@ button.accept-policy {
        bottom:0;
        right:3px;
     }
+
+/*Home images*/
+.cstm-height-card .card-img-top {
+    height: 100px;
+    object-fit: cover;
+}
+

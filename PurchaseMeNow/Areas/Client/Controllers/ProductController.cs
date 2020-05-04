@@ -11,6 +11,7 @@ using PurchaseMeNow.Utility;
 namespace PurchaseMeNow.Areas.Client.Controllers
 {
     [Area("Client")]
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -51,7 +52,7 @@ namespace PurchaseMeNow.Areas.Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+     
         public IActionResult AddToOrder(Order orderObj)
         {
             orderObj.Id = 0;

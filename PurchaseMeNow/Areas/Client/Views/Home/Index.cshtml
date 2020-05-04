@@ -2,7 +2,44 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="container">
+        <h2>Welcome to your PurchaseMeNow Homepage </h2>
+        <h3>Where would you like to go?</h3>
+        <div class="row mb-5">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="~/images/supplies.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Products</h5>
+                        <p class="card-text">Browse and order required office products here.</p>
+                        <a asp-area="client" asp-controller="product" asp-action="index" class="btn btn-sm btn-primary">Order Products</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="~/images/cart.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Your Cart</h5>
+                        <p class="card-text">View items added to cart so far</p>
+                        <a asp-area="client" asp-controller="order" asp-action="index" class="btn btn-sm btn-primary">View Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="~/images/delivery.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Order Status</h5>
+                        <p class="card-text">Check your order status here</p>
+                        <a asp-area="admin" asp-controller="order" asp-action="index" class="btn btn-sm btn-primary">Order Status</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- row -->
+       
+
+        <!-- row -->
+    </div>
