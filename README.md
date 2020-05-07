@@ -1,4 +1,5 @@
 # PurchaseMeNow
+View Demo Here - [Demo](https://www.youtube.com/watch?v=XG7DwEEfcBo)
 PurchaseMeNow is a purchasing system for an organization with multiple sites where:
 
 * **End User** - can browse and order necessary office products
@@ -9,7 +10,7 @@ Finaly, when end user receives the order they can confirm delivery and complete 
 
 You can view the demo of the application below:
 
-Demo: View Demo Here - [Demo](https://www.youtube.com/watch?v=XG7DwEEfcBo)
+
 
 
 ## Built With
