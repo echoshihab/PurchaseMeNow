@@ -93,13 +93,12 @@ namespace PurchaseMeNow.Areas.Client.Controllers
                 //return to view
                 var productFromDb = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == orderObj.ProductId, includeProperties: "Category,Department");
 
-                Order order = new Order()
-                {
-                    Product = productFromDb,
-                    ProductId = productFromDb.Id
-                };
+                orderObj.Product = productFromDb;
+                orderObj.ProductId = productFromDb.Id;
 
-                return View(order);
+          
+
+                return View(orderObj);
             }
 
             
