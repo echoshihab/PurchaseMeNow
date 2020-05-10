@@ -9,9 +9,6 @@ PurchaseMeNow is a purchasing system for an organization with multiple sites whe
 
 Finaly, when end user receives the order they can confirm delivery and complete the cycle.
 
-You can view the demo of the application below:
-
-
 
 
 ## Built With
